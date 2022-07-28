@@ -31,7 +31,7 @@ public class ListNode<T> {
     }
 }
 
-public func convertToArray<T>(_ head: ListNode<T>) -> [T] {
+public func convertLinkedListToArray<T>(_ head: ListNode<T>) -> [T] {
     var array = [T]()
     var pointer: ListNode<T>? = head
     
@@ -78,4 +78,30 @@ public class TreeNode<T> {
         self.left = left
         self.right = right
     }
+}
+
+public func convertTreeToArray<T>(_ root: TreeNode<T>) -> [T] {
+    var array = [T]()
+    var queue = [root]
+    
+    while queue.count > 0 {
+        let node = queue.removeFirst()
+        array.append(node.value)
+        if let left = node.left {
+            queue.append(left)
+        }
+        if let right = node.right {
+            queue.append(right)
+        }
+    }
+    
+    return array
+}
+
+public func convertArrayToTree<T>(_ array: [T]) -> TreeNode<T> {
+    let mid = array.count / 2
+    let node = TreeNode(array[mid])
+    node.left = TreeNode(Array(array[0..<mid]) as! T)
+    node.right = TreeNode(Array(array[mid..<array.count]) as! T)
+    return node
 }
